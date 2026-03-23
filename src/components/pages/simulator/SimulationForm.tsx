@@ -131,8 +131,7 @@ export default function SimulationForm({ id }: TProp) {
 
   return (
     <div className="space-y-4">
-      {/* Form Card */}
-      <div className="rounded-xl border border-gray-200 bg-white dark:border-white/5 dark:bg-white/[0.03] p-6">
+      <div className="rounded-xl border border-gray-200 bg-white dark:border-white/5 dark:bg-white/3 p-6">
         <h3 className="text-base font-semibold text-gray-800 dark:text-white mb-5 flex items-center gap-2">
           <span className="w-1.5 h-5 rounded-full bg-brand-500 inline-block" />
           Dados do Financiamento
@@ -140,39 +139,34 @@ export default function SimulationForm({ id }: TProp) {
 
         <form onSubmit={handleSubmit(onCalculate)}>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-6 gap-y-4">
-            {/* Vehicle Name */}
             <div>
               <Label htmlFor="vehicleName" title="Nome do Veículo" required={false} />
-              <Input
+              <input placeholder="Ex: Honda Civic 2023" {...register("vehicleName")} className="input-erp-primary input-erp-default"/>
+
+              {/* <Input
                 id="vehicleName"
                 placeholder="Ex: Honda Civic 2023"
                 {...register("vehicleName")}
                 onChange={(e) => setValue("vehicleName", e.target.value)}
-              />
+              /> */}
             </div>
 
             {/* Client Name */}
             <div>
               <Label htmlFor="clientName" title="Nome do Cliente" required={false} />
-              <Input
+              <input placeholder="Ex: João Silva" {...register("clientName")} className="input-erp-primary input-erp-default"/>
+
+              {/* <Input
                 id="clientName"
                 placeholder="Ex: João Silva"
                 {...register("clientName")}
                 onChange={(e) => setValue("clientName", e.target.value)}
-              />
+              /> */}
             </div>
 
             {/* Vehicle Value */}
             <div>
               <Label htmlFor="vehicleValue" title="Valor do Veículo (R$)" />
-              {/* <Input
-                id="vehicleValue"
-                placeholder="Ex: 85.000,00"
-                error={!!errors.vehicleValue}
-                hint={errors.vehicleValue?.message}
-                {...register("vehicleValue", { required: "Campo obrigatório" })}
-                onChange={(e) => setValue("vehicleValue", e.target.value)}
-              /> */}
               <Controller
                 name="vehicleValue"
                 control={control}
@@ -196,14 +190,6 @@ export default function SimulationForm({ id }: TProp) {
             {/* Down Payment */}
             <div>
               <Label htmlFor="downPayment" title="Entrada (R$)" />
-              {/* <Input
-                id="downPayment"
-                placeholder="Ex: 20.000,00"
-                error={!!errors.downPayment}
-                hint={errors.downPayment?.message}
-                {...register("downPayment", { required: "Campo obrigatório" })}
-                onChange={(e) => setValue("downPayment", e.target.value)}
-              /> */}
               <Controller
                 name="downPayment"
                 control={control}
@@ -227,14 +213,15 @@ export default function SimulationForm({ id }: TProp) {
             {/* Monthly Interest Rate */}
             <div>
               <Label htmlFor="monthlyInterestRate" title="Taxa de Juros Mensal (%)" />
-              <Input
+              <input placeholder="Ex: 1.5" {...register("monthlyInterestRate")} className="input-erp-primary input-erp-default"/>
+              {/* <Input
                 id="monthlyInterestRate"
                 placeholder="Ex: 1.5"
                 error={!!errors.monthlyInterestRate}
                 hint={errors.monthlyInterestRate?.message}
                 {...register("monthlyInterestRate", { required: "Campo obrigatório" })}
                 onChange={(e) => setValue("monthlyInterestRate", e.target.value)}
-              />
+              /> */}
             </div>
 
             {/* Installments */}
