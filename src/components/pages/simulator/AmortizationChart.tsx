@@ -35,13 +35,13 @@ const CustomTooltip = ({ active, payload, label }: any) => {
 export default function AmortizationChart({ data }: TProp) {
   const chartData = data.map((row) => ({
     mes: row.month,
-    "Saldo Devedor": Number(row.balance.toFixed(2)),
-    "Amortização": Number(row.principal.toFixed(2)),
-    "Juros": Number(row.interest.toFixed(2)),
+    "Saldo Devedor": row?.balance,
+    "Amortização": row?.principal,
+    "Juros": row?.interest,
   }));
 
   return (
-    <div className="rounded-xl border border-gray-200 bg-white dark:border-white/5 dark:bg-white/[0.03] p-6">
+    <div className="rounded-xl border border-gray-200 bg-white dark:border-white/5 dark:bg-white/3 p-6">
       <h3 className="text-base font-semibold text-gray-800 dark:text-white mb-5 flex items-center gap-2">
         <span className="w-1.5 h-5 rounded-full bg-brand-500 inline-block" />
         Evolução da Dívida

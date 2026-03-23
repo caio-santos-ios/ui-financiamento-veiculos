@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { useForm } from "react-hook-form";
+import { Controller, useForm } from "react-hook-form";
 import { useRouter } from "next/navigation";
 import { useAtom } from "jotai";
 import { api } from "@/service/api.service";
@@ -17,6 +17,7 @@ import SimulationResultCard from "./SimulationResultCard";
 import AmortizationChart from "./AmortizationChart";
 import AmortizationTable from "./AmortizationTable";
 import CompareInstallments from "./CompareInstallments";
+import { NumericFormat } from "react-number-format";
 
 type TProp = { id?: string };
 
@@ -30,7 +31,7 @@ export default function SimulationForm({ id }: TProp) {
   const [isEditing, setIsEditing] = useState(false);
   const router = useRouter();
 
-  const { register, handleSubmit, watch, setValue, reset, formState: { errors } } = useForm<TSimulationForm>({
+  const { register, control, handleSubmit, watch, setValue, reset, formState: { errors } } = useForm<TSimulationForm>({
     defaultValues: ResetSimulationForm,
   });
 
@@ -164,27 +165,63 @@ export default function SimulationForm({ id }: TProp) {
             {/* Vehicle Value */}
             <div>
               <Label htmlFor="vehicleValue" title="Valor do Veículo (R$)" />
-              <Input
+              {/* <Input
                 id="vehicleValue"
                 placeholder="Ex: 85.000,00"
                 error={!!errors.vehicleValue}
                 hint={errors.vehicleValue?.message}
                 {...register("vehicleValue", { required: "Campo obrigatório" })}
                 onChange={(e) => setValue("vehicleValue", e.target.value)}
-              />
+              /> */}
+              <Controller
+                name="vehicleValue"
+                control={control}
+                render={({ field: { onChange, value } }) => (
+                  <NumericFormat
+                    className="input-erp-primary input-erp-default" 
+                    value={value}
+                    onValueChange={(values) => onChange(values.floatValue ?? 0)}
+                    thousandSeparator="."
+                    decimalSeparator=","
+                    prefix="R$ "
+                    decimalScale={2}
+                    fixedDecimalScale
+                    allowNegative={false}
+                    placeholder="Ex: 85.000,00"
+                  />
+                )}
+              />  
             </div>
 
             {/* Down Payment */}
             <div>
               <Label htmlFor="downPayment" title="Entrada (R$)" />
-              <Input
+              {/* <Input
                 id="downPayment"
                 placeholder="Ex: 20.000,00"
                 error={!!errors.downPayment}
                 hint={errors.downPayment?.message}
                 {...register("downPayment", { required: "Campo obrigatório" })}
                 onChange={(e) => setValue("downPayment", e.target.value)}
-              />
+              /> */}
+              <Controller
+                name="downPayment"
+                control={control}
+                render={({ field: { onChange, value } }) => (
+                    <NumericFormat
+                      className="input-erp-primary input-erp-default" 
+                      value={value}
+                      onValueChange={(values) => onChange(values.floatValue ?? 0)}
+                      thousandSeparator="."
+                      decimalSeparator=","
+                      prefix="R$ "
+                      decimalScale={2}
+                      fixedDecimalScale
+                      allowNegative={false}
+                      placeholder="Ex: 20.000,00"
+                    />
+                )}
+              />  
             </div>
 
             {/* Monthly Interest Rate */}
